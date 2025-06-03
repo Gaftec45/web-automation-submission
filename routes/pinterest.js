@@ -9,7 +9,7 @@ router.get('/bot/pinterest', (req, res) => {
 
 // Handle form POST submission
 router.post('/bot/pinterest', async (req, res) => {
-  const { sheetUrl, driveUrl, email, password } = req.body;
+  const { sheetUrl, driveUrl } = req.body;
 
   try {
     // Extract IDs from URLs
@@ -23,7 +23,7 @@ router.post('/bot/pinterest', async (req, res) => {
     for (let i = 0; i < businesses.length; i++) {
       const biz = businesses[i];
       console.log(`🚀 Submitting pin for business: ${biz.name}, index: ${i}`);
-      await submitToPinterest(biz, folderId, email, password, i);
+      await submitToPinterest(biz, folderId, i);
     }
 
     res.render('result', { message: '✅ Pinterest Bot completed successfully!' });

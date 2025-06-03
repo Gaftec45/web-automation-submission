@@ -79,7 +79,7 @@ async function submit(business, driveFolderId) {
 
   try {
     browser = await chromium.launch({ headless: false });
-    const context = await browser.newContext({ storageState: 'auths/storageState/auth.json' }); // Pre-auth session
+    const context = await browser.newContext({ storageState: 'auths/storageState/medium.json' }); // Pre-auth session
     const page = await context.newPage();
 
     await page.goto('https://medium.com/new-story');

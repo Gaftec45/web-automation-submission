@@ -19,7 +19,7 @@ const fs = require('fs');
   await page.waitForTimeout(60000); // give 60s for manual login
 
   // Save authentication state
-  await context.storageState({ path: 'auth.json' });
+  await context.storageState({ path: 'storageState/medium.json' });
 
   console.log('✅ Auth session saved to auth.json');
   await browser.close();

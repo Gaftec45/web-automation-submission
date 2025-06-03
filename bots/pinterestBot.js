@@ -1,28 +1,21 @@
 const { chromium } = require('playwright');
 const { prepareImage } = require('../utils/googleApiUtils');
+const path = require('path');
 
-async function loginPinterest(page, email, password) {
-  await page.goto('https://www.pinterest.com/login/');
-  await page.fill('input[name="id"]', email);
-  await page.fill('input[name="password"]', password);
-  await page.click('button[type="submit"]');
-
-  await Promise.race([
-    page.waitForNavigation({ waitUntil: 'load', timeout: 30000 }),
-    page.waitForSelector('div[data-test-id="header-profile"]', { timeout: 30000 }),
-  ]);
-}
-
-async function submitToPinterest(business, folderId, email, password, index = 0) {
+async function submitToPinterest(business, folderId, index = 0) {
   console.log(`\n--- 📌 Starting Pinterest submission for: ${business.name} ---`);
 
   const browser = await chromium.launch({ headless: false });
-  const context = await browser.newContext();
+  const context = await browser.newContext({
+    storageState: path.resolve(__dirname, '../auths/storageState/pinterest.json'), // auto-login
+  });
   const page = await context.newPage();
 
   try {
-    await loginPinterest(page, email, password);
-    await page.waitForTimeout(2000);
+    await page.goto('https://www.pinterest.com/');
+    await page.waitForLoadState('domcontentloaded');
+    console.log('✅ Auto-login successful.');
+
     await page.goto('https://www.pinterest.com/pin-creation-tool/');
     await page.waitForTimeout(3000);
 
