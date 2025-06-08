@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "scripts": {
-    "start": "node app.js"
-  },
+"scripts": {
+  "start": "node app.js",
+  "postinstall": "npx playwright install --with-deps"
+},
   "author": "GFT - Tega fate",
   "license": "ISC",
   "dependencies": {
