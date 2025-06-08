@@ -78,7 +78,7 @@ async function submit(business, driveFolderId) {
   let imagePath;
 
   try {
-    browser = await chromium.launch({ headless: false });
+    browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({ storageState: 'auths/storageState/medium.json' }); // Pre-auth session
     const page = await context.newPage();
 
