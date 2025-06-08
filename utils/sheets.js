@@ -1,5 +1,5 @@
 const { google } = require('googleapis');
-const credentials = require('../credentials.json'); // Make sure this path is correct
+const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS); // Make sure this path is correct
 
 const sheets = google.sheets('v4');
 
